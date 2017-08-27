@@ -21,7 +21,7 @@ public class ScheduleEvent {
 
 	@Autowired
 	PartitionedRegionFactoryBean<BigInteger, BigInteger> sumRegion;
-	
+
 	private Random random = new Random();;
 	
 	@Scheduled(initialDelay=1000, fixedRate=1000)
