@@ -22,3 +22,6 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+/GemFire_cauley/
+/locator10334state.dat
+/locator10334views.log
