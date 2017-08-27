@@ -18,7 +18,7 @@ public class ScheduleEvent {
 	 
 	@Autowired
 	PartitionedRegionFactoryBean<Long, Long> factorialsRegion;
-	 
+
 	@Autowired
 	PartitionedRegionFactoryBean<BigInteger, BigInteger> sumRegion;
 	
