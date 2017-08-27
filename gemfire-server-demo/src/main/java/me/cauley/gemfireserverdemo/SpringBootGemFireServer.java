@@ -113,7 +113,7 @@ public class SpringBootGemFireServer {
 	}
 
 	@Bean(name = "Factorials")
-	PartitionedRegionFactoryBean factorialsRegion(Cache gemfireCache,
+	PartitionedRegionFactoryBean<Long, Long> factorialsRegion(Cache gemfireCache,
 			@Qualifier("factorialRegionAttributes") RegionAttributes<Long, Long> factorialRegionAttributes) {
 
 		PartitionedRegionFactoryBean<Long, Long> factorials = new PartitionedRegionFactoryBean<>();
@@ -128,7 +128,7 @@ public class SpringBootGemFireServer {
 	}
 
 	@Bean
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	RegionAttributesFactoryBean factorialRegionAttributes() {
 		RegionAttributesFactoryBean factorialRegionAttributes = new RegionAttributesFactoryBean();
 
