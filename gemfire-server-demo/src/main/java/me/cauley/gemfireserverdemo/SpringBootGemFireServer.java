@@ -1,5 +1,6 @@
 package me.cauley.gemfireserverdemo;
 
+import java.math.BigInteger;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -47,7 +48,7 @@ public class SpringBootGemFireServer {
 
 	protected static final String DEFAULT_LOG_LEVEL = "config";
 
-	protected final Logger logger = LoggerFactory.getLogger(getClass());
+	protected static final Logger LOGGER = LoggerFactory.getLogger(SpringBootGemFireServer.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootGemFireServer.class);
@@ -65,7 +66,7 @@ public class SpringBootGemFireServer {
 			@Value("${spring.gemfire.manager.start:false}") boolean jmxManagerStart,
 			@Value("${spring.gemfire.start-locator}") String startLocator) {
 
-		logger.warn("spring.gemfire.log-level is [{}]", logLevel);
+		LOGGER.warn("spring.gemfire.log-level is [{}]", logLevel);
 
 		Properties gemfireProperties = new Properties();
 
@@ -126,7 +127,41 @@ public class SpringBootGemFireServer {
 
 		return factorials;
 	}
+	
+	@Bean(name="SumRegion")
+	PartitionedRegionFactoryBean<BigInteger, BigInteger> sumRegion(Cache gemfireCache){
+		PartitionedRegionFactoryBean<BigInteger, BigInteger> sumRegion = new PartitionedRegionFactoryBean<>();
+		sumRegion.setKeyConstraint(BigInteger.class);
+		sumRegion.setValueConstraint(BigInteger.class);
+		sumRegion.setCache(gemfireCache);
+		sumRegion.setCacheLoader(new CacheLoader<BigInteger, BigInteger>() {
+			@Override
+			public void close() {
+				LOGGER.info("I will be closed.");
+			}
 
+			@Override
+			public BigInteger load(LoaderHelper<BigInteger, BigInteger> helper) throws CacheLoaderException {
+				BigInteger key = helper.getKey();
+				LOGGER.info("will calc key: " + key.toString());
+				
+//				BigInteger sum = BigInteger.ZERO;
+//				for (BigInteger i = BigInteger.ONE; i.compareTo(key) < 0; i = i.add(BigInteger.ONE)) {
+//					sum = sum.add(i);
+//				}
+				BigInteger sum = key.multiply(key.add(BigInteger.ONE)).divide(new BigInteger("2"));
+				LOGGER.info("key: " + key.toString() + ", sum from ONE: " + sum.toString());
+				return sum;
+			}
+		});
+		
+		sumRegion.setClose(false);
+		sumRegion.setPersistent(false);
+		
+		
+		return sumRegion;
+	}
+	
 	@Bean
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	RegionAttributesFactoryBean factorialRegionAttributes() {
