@@ -127,7 +127,7 @@ public class SpringBootGemFireServer {
 
 		return factorials;
 	}
-	
+
 	@Bean(name="SumRegion")
 	PartitionedRegionFactoryBean<BigInteger, BigInteger> sumRegion(Cache gemfireCache){
 		PartitionedRegionFactoryBean<BigInteger, BigInteger> sumRegion = new PartitionedRegionFactoryBean<>();
