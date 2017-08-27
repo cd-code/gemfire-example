@@ -1,0 +1,16 @@
+
+[info 2017/08/27 16:39:58.413 CST <main> tid=0x1] Log opened with new distributed system connection.  View(creator=windows10(SpringBootGemFireServer)<v0>:60935, viewId=0, [windows10(SpringBootGemFireServer)<v0>:60935])
+
+[info 2017/08/27 16:39:59.731 CST <main> tid=0x1] server summary: 1 cache servers with 0 client connections\current cache servers : windows10(SpringBootGemFireServer)<v0>:60935 
+
+[info 2017/08/27 16:44:25.341 CST <main> tid=0x1] Log opened with new distributed system connection.  View(creator=windows10(SpringBootGemFireServer)<v0>:52080, viewId=0, [windows10(SpringBootGemFireServer)<v0>:52080])
+
+[info 2017/08/27 16:44:26.652 CST <main> tid=0x1] server summary: 1 cache servers with 0 client connections\current cache servers : windows10(SpringBootGemFireServer)<v0>:52080 
+
+[info 2017/08/27 16:48:16.357 CST <main> tid=0x1] Log opened with new distributed system connection.  View(creator=windows10(SpringBootGemFireServer)<v0>:16090, viewId=0, [windows10(SpringBootGemFireServer)<v0>:16090])
+
+[info 2017/08/27 16:48:17.698 CST <main> tid=0x1] server summary: 1 cache servers with 0 client connections\current cache servers : windows10(SpringBootGemFireServer)<v0>:16090 
+
+[info 2017/08/27 16:49:18.114 CST <main> tid=0x1] Log opened with new distributed system connection.  View(creator=windows10(SpringBootGemFireServer)<v0>:59519, viewId=0, [windows10(SpringBootGemFireServer)<v0>:59519])
+
+[info 2017/08/27 16:49:19.468 CST <main> tid=0x1] server summary: 1 cache servers with 0 client connections\current cache servers : windows10(SpringBootGemFireServer)<v0>:59519 
