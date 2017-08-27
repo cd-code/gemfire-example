@@ -15,7 +15,7 @@ import com.gemstone.gemfire.cache.Region;
 @Component
 public class ScheduleEvent {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleEvent.class);
-	 
+	
 	@Autowired
 	PartitionedRegionFactoryBean<Long, Long> factorialsRegion;
 
