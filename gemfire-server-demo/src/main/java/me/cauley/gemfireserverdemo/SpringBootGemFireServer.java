@@ -20,8 +20,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.gemfire.CacheFactoryBean;
+import org.springframework.data.gemfire.LocalRegionFactoryBean;
 import org.springframework.data.gemfire.PartitionedRegionFactoryBean;
 import org.springframework.data.gemfire.RegionAttributesFactoryBean;
+import org.springframework.data.gemfire.ReplicatedRegionFactoryBean;
+import org.springframework.data.gemfire.client.ClientRegionFactoryBean;
 import org.springframework.data.gemfire.server.CacheServerFactoryBean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.util.Assert;
@@ -118,7 +121,11 @@ public class SpringBootGemFireServer {
 			@Qualifier("factorialRegionAttributes") RegionAttributes<Long, Long> factorialRegionAttributes) {
 
 		PartitionedRegionFactoryBean<Long, Long> factorials = new PartitionedRegionFactoryBean<>();
-
+//		ReplicatedRegionFactoryBean<Long, Long> testBean = new ReplicatedRegionFactoryBean<>();
+//		LocalRegionFactoryBean<Long, Long> localRegionFactoryBean = new LocalRegionFactoryBean<>();
+//		ClientRegionFactoryBean<Long, Long> clientRegionFactoryBean = new ClientRegionFactoryBean<>();
+		
+		
 		factorials.setAttributes(factorialRegionAttributes);
 		factorials.setCache(gemfireCache);
 		factorials.setCacheLoader(factorialsCacheLoader());
@@ -157,7 +164,7 @@ public class SpringBootGemFireServer {
 		
 		sumRegion.setClose(false);
 		sumRegion.setPersistent(false);
-		
+//		sumRegion.setCacheListeners(cacheListeners);
 		
 		return sumRegion;
 	}
