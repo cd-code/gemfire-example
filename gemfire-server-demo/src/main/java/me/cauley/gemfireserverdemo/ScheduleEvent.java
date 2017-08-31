@@ -24,7 +24,7 @@ public class ScheduleEvent {
 
 	private Random random = new Random();
 	
-	@Scheduled(initialDelay=10000, fixedRate=10000)
+	@Scheduled(initialDelay=10000, fixedRate=3000)
 	public void execFactorials() throws Exception {
 		LOGGER.info("Enter execFactorials with factoryBean: " + factorialsRegion);
 		Region<Long, Long> factorials = factorialsRegion.getObject();
@@ -34,7 +34,7 @@ public class ScheduleEvent {
 		LOGGER.info("FactorialsRegion key: " + key + ", value: " + factorials.get(key));
 	}
 	
-	@Scheduled(initialDelay=2000000, fixedRate=1000)
+	@Scheduled(initialDelay=2000000, fixedRate=300000)
 	public void execSum() throws Exception {
 		LOGGER.info("Enter execSum with factoryBean: " + sumRegion);
 		Region<BigInteger, BigInteger> sum = sumRegion.getObject();

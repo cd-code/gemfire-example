@@ -2,10 +2,12 @@ package me.cauley.gemfireclientdemo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.gemfire.function.config.EnableGemfireFunctionExecutions;
 import org.springframework.data.gemfire.listener.ContinuousQueryDefinition;
 import org.springframework.data.gemfire.listener.ContinuousQueryListenerContainer;
 import org.springframework.data.gemfire.listener.adapter.ContinuousQueryListenerAdapter;
@@ -18,12 +20,14 @@ import com.gemstone.gemfire.cache.client.ClientCacheFactory;
 import com.gemstone.gemfire.cache.client.ClientRegionShortcut;
 import com.google.common.collect.Sets;
 
+import me.cauley.gemfireclientdemo.function.FunctionExecution;
+
 @SpringBootApplication
 @EnableScheduling
+@EnableGemfireFunctionExecutions(basePackageClasses=FunctionExecution.class)
 public class GemfireClient {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(GemfireClient.class);
-	
 	
 	public static void main(String[] args) {
 		ConfigurableApplicationContext ctx = SpringApplication.run(GemfireClient.class);
@@ -35,8 +39,7 @@ public class GemfireClient {
 	}
 	
 	@Bean
-	public ContinuousQueryListenerContainer createContainer(ContinuousQueryDefinition definition) {
-		ClientCache cache = new ClientCacheFactory().setPoolSubscriptionEnabled(true).addPoolLocator("localhost", 10334).create();
+	public ContinuousQueryListenerContainer createContainer(ContinuousQueryDefinition definition, ClientCache cache) {
 //		Region<Long, Long> factorialsRegion = cache.<Long, Long>createClientRegionFactory(ClientRegionShortcut.PROXY).create("Factorials");
 //		LOGGER.info("Result: " + factorialsRegion.get(12L));
 		
@@ -59,4 +62,13 @@ public class GemfireClient {
 		
 	}
 	
+	@Bean("Factorials")
+	public Region<Long, Long> createRegion(ClientCache cache){
+		return cache.<Long, Long>createClientRegionFactory(ClientRegionShortcut.PROXY).create("Factorials");
+	}
+	
+	@Bean
+	public ClientCache createCacheClient() {
+		return new ClientCacheFactory().setPoolSubscriptionEnabled(true).addPoolLocator("localhost", 10334).create();
+	}
 }
